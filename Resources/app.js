@@ -1,11 +1,28 @@
-// This is a single context, single window application
-// There is only one master window to which sub views will be added
-(function() {
-  if (Ti.version < 1.8 ) {
-    alert('Sorry - this application requires Titanium Mobile SDK 1.8 or later');
-  }
-  else {
-    var ApplicationWindow = require('ui/ApplicationWindow').ApplicationWindow;
-    new ApplicationWindow().open();
-  }
-})();
+var tab1, tabGroup, win;
+
+Ti.App.config = {
+  serverRoot: 'http://renoir.herokuapp.com'
+};
+
+Ti.API.debug("serverRoot: " + Ti.App.config.serverRoot);
+Ti.UI.setBackgroundColor('#fff');
+
+win = Ti.UI.createWindow({
+  url: 'map.js',
+  title: 'ルノアールマップ',
+  backgroundColor: '#fff',
+  fullscreen: false,
+  exitOnClose: true
+});
+
+tab1 = Ti.UI.createTab({
+  window: win
+});
+
+win.hideTabBar();
+
+tabGroup = Ti.UI.createTabGroup();
+
+tabGroup.addTab(tab1);
+
+tabGroup.open();
