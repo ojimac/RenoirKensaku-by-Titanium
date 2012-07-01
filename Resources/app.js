@@ -2,6 +2,7 @@ var tab1, tabGroup, win;
 
 Ti.App.config = {
   serverRoot: 'http://renoir.herokuapp.com'
+  //serverRoot: 'http://localhost:3000'
 };
 
 Ti.API.debug("serverRoot: " + Ti.App.config.serverRoot);
