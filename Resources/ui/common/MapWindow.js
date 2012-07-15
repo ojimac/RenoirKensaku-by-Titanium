@@ -15,7 +15,7 @@ function MapWindow(_title) {
   var longitude = 139.701033;
   var get_location, get_all_renoir;
 
-  // ローディング画像
+  // スピナー
   activityIndicator = Ti.UI.createActivityIndicator({
     color      : '',
     font       : {
@@ -24,11 +24,11 @@ function MapWindow(_title) {
       fontWeight : 'bold'
     },
     message    : '読込中...',
-    style      : Ti.UI.iPhone.ActivityIndicatorStyle.DARK,
+    style      : Ti.UI.iPhone.ActivityIndicatorStyle.BIG,
     top        : 150,
     left       : 100,
-    height     : 'auto',
-    width      : 'auto'
+    height     : Ti.UI.SIZE,
+    width      : Ti.UI.SIZE
   });
   self.add(activityIndicator);
 
@@ -66,13 +66,12 @@ function MapWindow(_title) {
 
     // ルノアールの位置を取得してピンを立てる(複数)
     info = get_all_renoir(mapview);
-    Ti.API.info(info);
+    //Ti.API.info(info);
 
-    // アラートを出したときに、左側の「設定」が押されたかどうか
     mapview.addEventListener('click', function(e) {
       Ti.API.info('shops click');
-      Ti.API.info(shops);
-      Ti.API.info('^ shops info');
+      //Ti.API.info(shops);
+      //Ti.API.info('^ shops info');
       var annotation = e.annotation;
       var title = e.title;
       var clicksource = e.clicksource;
@@ -88,8 +87,24 @@ function MapWindow(_title) {
       ) {
         mapview.removeAnnotation(e.annotation);
       }
-      Ti.API.info('title: ' + e.title);
-      Ti.API.info('id: ' + e.annotation.myid);
+
+      // DISCLOSUREが押された場合
+      if (e.annotation && e.clicksource === 'rightButton') {
+        Ti.API.debug('annotation');
+        Ti.API.debug(e.annotation.titleid);
+        Ti.API.debug(e.annotation.subtitleid);
+        var ShopDetailWindow = require('ui/common/ShopDetailWindow');
+        var ShopDetailWin = new ShopDetailWindow({
+          _title     : 'mise',
+          parentWin  : self
+        });
+        //ShopDetailWin.open(self, {animated : true});
+        //ShopDetailWin.open();
+        var t = Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT;
+        self.animate({view:ShopDetailWin, transition:t});
+      }
+      //Ti.API.info('title: ' + e.title);
+      //Ti.API.info('id: ' + e.annotation.myid);
     });
 
     // 現在地を取得するボタン
@@ -103,7 +118,7 @@ function MapWindow(_title) {
     button.addEventListener('click', function() {
       get_location();
     });
-    self.add(button);
+    mapview.add(button);
   });
 
   // 現在位置を取得してスクロール
@@ -151,7 +166,8 @@ function MapWindow(_title) {
           latitude    : info.lat,
           longitude   : info.lng,
           rightButton : Ti.UI.iPhone.SystemButton.DISCLOSURE,
-          myid        : info.id
+          titleid     : info.id,
+          subtitleid  : info.id
         }));
       }
       mapview.addAnnotations(results);
@@ -165,8 +181,8 @@ function MapWindow(_title) {
         longitudeDelta : 0.01
       });
       self.add(mapview);
-      shops = info;
-      Ti.API.info(shops);
+      //shops = info;
+      //Ti.API.info(shops);
     };
     xhr.send();
   };
