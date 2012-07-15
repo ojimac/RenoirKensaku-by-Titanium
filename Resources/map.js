@@ -4,7 +4,8 @@ var activityIndicator;
 var latitude  = 35.659371;
 var longitude = 139.701033;
 var get_location, get_all_renoir;
-
+var shops;
+Ti.API.info(shops);
 win = Ti.UI.currentWindow;
 
 // ローディング画像
@@ -57,10 +58,20 @@ win.addEventListener('open', function() {
   });
 
   // ルノアールの位置を取得してピンを立てる(複数)
-  get_all_renoir(mapview);
+  info = get_all_renoir(mapview);
+  Ti.API.info(info);
 
   // アラートを出したときに、左側の「設定」が押されたかどうか
   mapview.addEventListener('click', function(e) {
+    Ti.API.info('shops click');
+    Ti.API.info(shops);
+    Ti.API.info('^ shops info');
+    var annotation = e.annotation;
+    var title = e.title;
+    var clicksource = e.clicksource;
+    var myid = (e.annotation) ? e.annotation.myid : -1;
+
+    Ti.API.info('mapview click clicksource = ' + clicksource);
     if (
       e.annotation &&
       (
@@ -93,7 +104,7 @@ get_location = function() {
   Ti.Geolocation.getCurrentPosition(function(e) {
     // 緯度・経度
     var longitude = e.coords.longitude;
-    var latitude = e.coords.latitude;
+    var latitude  = e.coords.latitude;
 
     // 隠していた地図を表示する
     mapview.show();
@@ -126,28 +137,29 @@ get_all_renoir = function(mapview) {
       var info = json[i];
 
       results.push(Ti.Map.createAnnotation({
-        animate    : true,
-        pincolor   : Ti.Map.ANNOTATION_RED,
-        title      : info.name,
-        latitude   : info.lat,
-        longitude  : info.lng,
-        leftButton : '/images/delete.png',
-        myid       : info.id
+        animate     : true,
+        pincolor    : Ti.Map.ANNOTATION_RED,
+        title       : info.name,
+        subtitle    : info.shop_detail_url,
+        latitude    : info.lat,
+        longitude   : info.lng,
+        rightButton : Ti.UI.iPhone.SystemButton.DISCLOSURE,
+        myid        : info.id
       }));
     }
     mapview.addAnnotations(results);
-  // 隠していた地図を表示する
-  mapview.show();
-  // 現在地まで地図をスクロールする
-  mapview.setLocation({
-    latitude       : latitude,
-    longitude      : longitude,
-    latitudeDelta  : 0.01,
-    longitudeDelta : 0.01
-  });
-
-  win.add(mapview);
-
+    // 隠していた地図を表示する
+    mapview.show();
+    // 現在地まで地図をスクロールする
+    mapview.setLocation({
+      latitude       : latitude,
+      longitude      : longitude,
+      latitudeDelta  : 0.01,
+      longitudeDelta : 0.01
+    });
+    win.add(mapview);
+    shops = info;
+    Ti.API.info(shops);
   };
   xhr.send();
 };
