@@ -1,12 +1,14 @@
-Ti.include('etc/config.js');
+Ti.include('etc/util.js');
 
 function MapWindow(_title) {
   var self = Ti.UI.createWindow({
     title           : _title,
+    tabBarHidden    : true,
+    navBarHidden    : true,
     backgroundColor : 'white'
   });
 
-  Ti.API.debug("serverRoot: " + config.serverRoot);
+  Ti.API.debug("serverRoot: " + Ti.App.config.serverRoot);
   Ti.UI.setBackgroundColor('#fff');
 
   var mapview;
@@ -17,14 +19,8 @@ function MapWindow(_title) {
 
   // スピナー
   activityIndicator = Ti.UI.createActivityIndicator({
-    color      : '',
-    font       : {
-      fontFamily : 'Helvetica Neue',
-      fontSize   : 26,
-      fontWeight : 'bold'
-    },
-    message    : '読込中...',
-    style      : Ti.UI.iPhone.ActivityIndicatorStyle.BIG,
+    message    : '読み込み中...',
+    style      : Ti.UI.iPhone.ActivityIndicatorStyle.DARK,
     top        : 150,
     left       : 100,
     height     : Ti.UI.SIZE,
@@ -69,7 +65,8 @@ function MapWindow(_title) {
     //Ti.API.info(info);
 
     mapview.addEventListener('click', function(e) {
-      Ti.API.info('shops click');
+      dump(e);
+      //Ti.API.info('shops click');
       //Ti.API.info(shops);
       //Ti.API.info('^ shops info');
       var annotation = e.annotation;
@@ -95,20 +92,17 @@ function MapWindow(_title) {
         Ti.API.debug(e.annotation.subtitleid);
         var ShopDetailWindow = require('ui/common/ShopDetailWindow');
         var ShopDetailWin = new ShopDetailWindow({
-          _title     : 'mise',
-          parentWin  : self
+          _title : title,
+          _url   : annotation.subtitle
         });
-        //ShopDetailWin.open(self, {animated : true});
-        //ShopDetailWin.open();
+        ShopDetailWin.open();
         var t = Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT;
         self.animate({view:ShopDetailWin, transition:t});
       }
-      //Ti.API.info('title: ' + e.title);
-      //Ti.API.info('id: ' + e.annotation.myid);
     });
 
     // 現在地を取得するボタン
-    button = Titanium.UI.createButton({
+    button = Ti.UI.createButton({
       title  : '現在地に移動',
       top    : 10,
       width  : 120,
@@ -142,7 +136,7 @@ function MapWindow(_title) {
 
   // ルノアールを検索して、ピンを立てる
   get_all_renoir = function(mapview) {
-    var url = config.serverRoot + '/shops.json';
+    var url = Ti.App.config.serverRoot + '/shops.json';
     var xhr = Ti.Network.createHTTPClient();
     xhr.timeout = 100000;
     xhr.open('GET', url);

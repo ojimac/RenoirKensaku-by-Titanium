@@ -1,10 +1,34 @@
 function ShopDetailWindow(_args) {
-  var self = Ti.UI.createWindow({
-    title           : _args._title,
+  dump(_args);
+
+  var self = Ti.UI.createTabGroup();
+
+  var win = Ti.UI.createWindow({
+    title           : '店舗詳細',
+    tabBarHidden    : true,
     backgroundColor : 'white'
   });
-  self.barColor = '#84a623';
 
+  var back_button = Ti.UI.createButtonBar({
+    labels : ['戻る']
+  });
+  win.setLeftNavButton(back_button);
+
+  // 戻るボタン
+  back_button.addEventListener('click', function(e) {
+    var TabGroup = require('ui/common/ApplicationTabGroup');
+    new TabGroup().open();
+    self.close();
+  });
+
+  var web_view = Ti.UI.createWebView({
+    url    : _args._url,
+    height : Ti.UI.SIZE,
+    width  : Ti.UI.SIZE
+  });
+  win.add(web_view);
+
+/*
   var view = Ti.UI.createView({
     top    : 0,
     left   : 0,
@@ -14,7 +38,7 @@ function ShopDetailWindow(_args) {
 
   var details = [];
   details[0] = Ti.UI.createTableViewSection({
-    headerTitle : '店舗詳細'
+    headerTitle : _args._title
   });
 
   var name = Ti.UI.createTableViewRow({
@@ -45,7 +69,13 @@ function ShopDetailWindow(_args) {
 
   view.add(table_view);
 
-  self.add(view);
+  win.add(view);
+*/
+
+  var tab = Ti.UI.createTab({
+    window : win
+  });
+  self.addTab(tab);
 
   return self;
 }

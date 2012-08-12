@@ -1,5 +1,6 @@
-(function() {
-  var Window = require('ui/handheld/ios/ApplicationWindow');
-  new Window().open();
-})();
+Ti.App.config = require('config');
 
+(function() {
+  var TabGroup = require('ui/common/ApplicationTabGroup');
+  new TabGroup().open();
+})();
