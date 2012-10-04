@@ -1,6 +1,6 @@
 Ti.App.config = require('config');
 
 (function() {
-  var TabGroup = require('ui/common/ApplicationTabGroup');
-  new TabGroup().open();
+  var Window = require('ui/common/ApplicationWindow');
+  new Window().open();
 })();

@@ -7,12 +7,12 @@
         <target device="android">false</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>2.1.0.GA</sdk-version>
-    <id>com.ojimac.renoirmap</id>
-    <name>renoirmap</name>
-    <version>1.0</version>
+    <sdk-version>2.1.1.GA</sdk-version>
+    <id>com.ojimac.renoir</id>
+    <name>renoir</name>
+    <version>1.0.0</version>
     <publisher>ojimac</publisher>
-    <url>http://</url>
+    <url>http://ojimac.com</url>
     <description>renoir search app</description>
     <copyright>2012 by ojimac</copyright>
     <icon>appicon.png</icon>

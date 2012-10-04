@@ -1,11 +1,10 @@
-/*
 // 圏外の場合に出すView
+/*
 function noInternetView(that, web_view) {
   var reload_view = Ti.UI.createView({
     width   : Ti.UI.FILL,
     height  : Ti.UI.FILL
   });
-  reload_view.backgroundColor = Ti.App.config.cooboo_backgroundColor;
   that.add(reload_view);
 
   var reload_label = Ti.UI.createLabel({
