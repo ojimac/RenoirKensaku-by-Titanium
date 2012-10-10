@@ -150,6 +150,21 @@ function MapWindow(_title) {
         longitudeDelta : 0.01
       });
       self.add(mapview);
+
+      // Ad
+      Titanium.Admob  = require('ti.admob');
+      var adview = Titanium.Admob.createView({
+        bottom             : 0,
+        left               : 0,
+        right              : 0,
+        width              : 320,
+        height             : 50,
+        adBackgroundColor  : 'black',
+        primaryTextColor   : 'blue',
+        secondaryTextColor : 'green',
+        publisherId        : 'a1507569b1eef04'
+      });
+      self.add(adview);
     };
     xhr.send();
   };
