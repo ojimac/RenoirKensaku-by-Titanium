@@ -7,10 +7,10 @@
         <target device="android">false</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>2.1.1.GA</sdk-version>
+    <sdk-version>2.1.3.GA</sdk-version>
     <id>com.ojimac.renoir</id>
     <name>renoir</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <publisher>ojimac</publisher>
     <url>http://ojimac.com</url>
     <description>renoir search app</description>
@@ -46,4 +46,7 @@
         <theme>default</theme>
     </mobileweb>
     <modules/>
+    <ios>
+        <min-ios-ver>4.3</min-ios-ver>
+    </ios>
 </ti:app>
