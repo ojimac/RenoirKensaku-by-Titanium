@@ -2,6 +2,6 @@
 
 [App Store](https://itunes.apple.com/jp/app/id558263797)で公開中
 
-GoogleMap SDKを使ってObjective-Cで書き換え中
+GoogleMap iOS SDKを使ってObjective-Cで書き換えてます(ver2.0.0)
 
-### MVP … 今いる近くのルノアールが探せること
+リポジトリ → https://github.com/ojimac/RenoirKensaku
