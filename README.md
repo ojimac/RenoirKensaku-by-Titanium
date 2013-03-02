@@ -4,4 +4,4 @@
 
 GoogleMap iOS SDKを使ってObjective-Cで書き換えてます(ver2.0.0)
 
-リポジトリ → https://github.com/ojimac/RenoirKensaku
+ver2.0.0の開発中リポジトリ → https://github.com/ojimac/RenoirKensaku
