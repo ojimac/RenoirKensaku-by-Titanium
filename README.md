@@ -1,6 +1,6 @@
-# ルノアールマップ
+[App Store](https://itunes.apple.com/jp/app/id558263797)で公開中
 
-[This App is available on the App Store](https://itunes.apple.com/jp/app/id558263797)
+GoogleMap SDKを使ってObjective-Cで書き換え中
 
 ## MVP … 今いる近くのルノアールが探せること
 
@@ -13,11 +13,3 @@
 - コンセントの位置
 
 - テーブル、椅子の種類
-
-## MVPまを作るまでに解決すること
-
-- ルノアールにピンを指す(API経由でサーバーから取得する)
-
-## ToDo
-
-- Google Map SDK for iOSを使って地図をGoogleMapへ(ネイティブで書き換え)
